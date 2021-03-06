@@ -16,7 +16,9 @@ body {
 		max-width: 1000px;
 		margin: 0 auto;
 	}
-	.button-mode {
+	
+	
+	.btn {
 		padding: 2px 3px;
 		text-align: center;
 		text-decoration: none;
@@ -31,12 +33,10 @@ body {
 	  }
 	  
 
-	  .button-mode:hover {
+	  .btn:hover {
 		background-color: #4CAF50;
 		color: white;
 	  }
-	
-	
 
 	h1 {
 		font-weight: 300;
@@ -77,7 +77,12 @@ body {
 			}
 		}
 	}
-
+	.sort-button {
+		  &:focus {
+			background-color: #4CAF50;
+			color: white;
+		  }
+	  }
 
 	a {
 		color: var(--text-color);
@@ -86,6 +91,15 @@ body {
 		font-size: 12px;
 	}
 
+	.page-button-location{
+		text-align: center;
+	}
+	.button-page{
+		padding: 10px;
+		font-size: 16px;
+	}
+
+
 	.tickets {
 
 		margin: 0;
@@ -93,7 +107,8 @@ body {
 
 		.ticket {
 			overflow: hidden;
-			height: 150px;
+			// height: 150px;
+			// height: 180px;
 			width: calc(50% - 70px);
 			margin: 15px;
 			display: inline-block;
@@ -116,30 +131,9 @@ body {
 			.content{
 				font-size: 12px;
 				color: gray;
-				margin-bottom: 15px;
-
+	
 			}
-			.pin-button {
-				padding: 2px 3px;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
-				font-size: 12px;
-				margin: 4px 2px;
-				transition-duration: 0.4s;
-				cursor: pointer;
-				background-color: white; 
-				color: black; 
-				border: 2px solid #4CAF50;
-			  }
-			  
-		
-			  .pin-button:hover {
-				background-color: #4CAF50;
-				color: white;
-			  }
 			 
-
 			footer {
 
 				display: flex;
@@ -148,210 +142,44 @@ body {
 				.meta-data {
 					color: var(--text-color);
 					font-size: 12px;
-					margin: 10px 0;
+					// margin: 10px 0;
 					flex-shrink: 0;
 				}
 			}
 		}
-		.pinnedTickets {
-			overflow: hidden;
-			height: 150px;
-			width: calc(100% - 70px);
-			margin: 15px;
-			display: inline-block;
-			padding: 10px 20px;
-			position: relative;
-			background-color: #fff;
-			box-shadow: 0 2px 6px 1px #e1e5e8;
+		.pinnedTickets {		
+			width: calc(100% - 70px);		
 
-			&:hover {
-				box-shadow: 0 2px 6px 1px #d3d7da;
-			}
-
-			.title {
-				margin: 15px 0;
-				font-size: 16px;
-				font-weight: 400;
-				font-style: normal;
-				color: var(--title-color);
-			}
-			.content{
-				font-size: 12px;
-				color: gray;
-				margin-bottom: 15px;
-
-			}
-			.pin-button {
-				padding: 2px 3px;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
-				font-size: 12px;
-				margin: 4px 2px;
-				transition-duration: 0.4s;
-				cursor: pointer;
-				background-color: white; 
-				color: black; 
-				border: 2px solid #4CAF50;
-			  }
-			  
-		
-			  .pin-button:hover {
-				background-color: #4CAF50;
-				color: white;
-			  }
-			
-
-			footer {
-
-				display: flex;
-				justify-content: space-between;
-
-				.meta-data {
-					color: var(--text-color);
-					font-size: 12px;
-					margin: 10px 0;
-					flex-shrink: 0;
-				}
-			}
 		}
 	}
 }
 .dark-mode {
 	font-family: 'Open Sans', sans-serif;	
 	background-color: var(--darkbackground-color);
-	
-
-	main {
-		max-width: 1000px;
-		margin: 0 auto;
-	}
-	.button-mode {
-		padding: 2px 3px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 12px;
-		margin: 4px 2px;
-		transition-duration: 0.4s;
-		cursor: pointer;
-		background-color: white; 
-		color: black; 
-		border: 2px solid #4CAF50;
-	  }
-	  
-
-	  .button-mode:hover {
-		background-color: #4CAF50;
-		color: white;
-	  }
-	
-
-
+		
 
 	h1 {
 		color:var(--background-color);
-		font-weight: 300;
+	
 	}
 
 	.results {
 		color: var(--darktext-color);;
-		font-size: 12px;
-		margin: 12px 5px;
+	
 	}
-
-	header {
-		width: 100%;
-		flex-shrink: 0;
-		border-radius: 6px;
-		background-color: #fff;
-		box-shadow: 0 2px 6px 1px #e1e5e8;
-		margin-bottom: 14px;
-		display: flex;
-		flex-direction: column;
-		border: 1px solid #fff;
-		padding: 10px 20px;
-		position: relative;
-
-		input {
-			width: 100%;
-			text-overflow: ellipsis;
-			display: inline-block;
-			color: var(--darktext-color);
-			font-size: 14px;
-			outline: 0;
-			transition: border .1s ease;
-			resize: none;
-			border: none;
-
-			&::placeholder  {
-				color: #b6c1cd;
-			}
-		}
-	}
-
-
 	a {
 		color: var(--darktext-color);
-		cursor: pointer;
-		font-weight: 500;
-		font-size: 12px;
 	}
 
 	.tickets {
-
-		margin: 0;
-		padding: 0;
-
 		.ticket {
-			overflow: hidden;
-			height: 150px;
-			width: calc(50% - 70px);
-			margin: 15px;
-			display: inline-block;
-			padding: 10px 20px;
-			position: relative;
 			background-color: var(--darkbackground-color);;
-			box-shadow: 0 2px 6px 1px #e1e5e8;
-
-			&:hover {
-				box-shadow: 0 2px 6px 1px #d3d7da;
-			}
-
 			.title {
-				margin: 15px 0;
-				font-size: 16px;
-				font-weight: 400;
-				font-style: normal;
 				color: var(--background-color);
 			}
 			.content{
-				font-size: 12px;
-				color: gray;
-				margin-bottom: 15px;
-
-			}
-			.pin-button {
-				padding: 2px 3px;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
-				font-size: 12px;
-				margin: 4px 2px;
-				transition-duration: 0.4s;
-				cursor: pointer;
-				background-color: white; 
-				color: black; 
-				border: 2px solid #4CAF50;
-			  }
-			  
-		
-			  .pin-button:hover {
-				background-color: #4CAF50;
 				color: white;
-			  }
-			
-
+			}
 			footer {
 
 				display: flex;
@@ -360,73 +188,15 @@ body {
 				.meta-data {
 					color: var(--darktext-color);
 					font-size: 12px;
-					margin: 10px 0;
+					// margin: 10px 0;
 					flex-shrink: 0;
 				}
 			}
+	
 		}
-		.pinnedTickets {
-			overflow: hidden;
-			height: 150px;
+		.pinnedTickets {	
 			width: calc(100% - 70px);
-			margin: 15px;
-			display: inline-block;
-			padding: 10px 20px;
-			position: relative;
-			background-color: var(--darkbackground-color);;
-			box-shadow: 0 2px 6px 1px #e1e5e8;
-
-			&:hover {
-				box-shadow: 0 2px 6px 1px #d3d7da;
-			}
-
-			.title {
-				margin: 15px 0;
-				font-size: 16px;
-				font-weight: 400;
-				font-style: normal;
-				color: var(--background-color);
-			}
-			.content{
-				font-size: 12px;
-				color: gray;
-				margin-bottom: 15px;
-
-			}
-			.pin-button {
-				padding: 2px 3px;
-				text-align: center;
-				text-decoration: none;
-				display: inline-block;
-				font-size: 12px;
-				margin: 4px 2px;
-				transition-duration: 0.4s;
-				cursor: pointer;
-				background-color: white; 
-				color: black; 
-				border: 2px solid #4CAF50;
-			  }
-			  
-		
-			  .pin-button:hover {
-				background-color: #4CAF50;
-				color: white;
-			  }
-		
 			
-
-			footer {
-
-				display: flex;
-				justify-content: space-between;
-
-				.meta-data {
-					color: var(--darktext-color);
-					font-size: 12px;
-					margin: 10px 0;
-					flex-shrink: 0;
-				}
-			}
 		}
 	}
 }
