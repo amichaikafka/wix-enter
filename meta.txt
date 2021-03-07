@@ -1,3 +1,3 @@
 examKey=11
 createdAt=2/27/2021
-candidateEmail=yours@email.com
+candidateEmail=amichaikp@gmail.com

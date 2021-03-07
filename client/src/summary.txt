@@ -1,0 +1,17 @@
+Answer:
+1. done incloud bonus
+2a. done
+2b.done
+2c.only email
+2d.done
+3.done divading the data to pages.
+I added few thing:
+1. AppBar in the top of the page the navbar is display all the time also if the page scroll down.
+The AppBar contain the search input the sorts buttons and the darkmood button,
+that allwos to the user to use all of those features any time.
+2.fix the result display
+3.pages in the web.
+4.Label display in any ticket, thats allwos to the user to recognise if this ticket could interest him.
+5.Sort by label, thats allwos to search according to topic, in this way the user can search in more genral way and find what he want faster.
+NOTE: The AppBar is from : https://material-ui.com/api/app-bar/
+    The darkmood button id from: https://www.npmjs.com/package/react-dark-mode-toggle      

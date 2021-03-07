@@ -42,17 +42,18 @@ export class App extends React.PureComponent<{}, AppState> {
 	searchDebounce: any = null;
 
 	async componentDidMount() {
-		
-		
+
+
 
 		this.getTickets();
 	}
 	/**
-	 * 
+	 * The goal of this function is to call to the API getTickets function and infact 
+	 * send a requst to the server by demand
 	 */
 
-	getTickets=async()=> {
-		
+	getTickets = async () => {
+
 		const ans = await api.getTickets(this.state.sortBy, this.state.sortDownArray, this.state.page, this.state.search);
 		const ticketByRequst = ans[0];
 		const totalResults = ans[1];
@@ -61,7 +62,7 @@ export class App extends React.PureComponent<{}, AppState> {
 		this.setState({
 			tickets: newTickets, totalResults: totalResults
 		});
-	
+
 	}
 
 
@@ -81,9 +82,9 @@ export class App extends React.PureComponent<{}, AppState> {
 	 */
 
 
-	onSearch = async (val: string, newPage?: number) => {
+	onSearch = async (val: string) => {
 
-		this.setState({ search: val, page: 1 }, () =>this.getTickets());
+		this.setState({ search: val, page: 1 }, () => this.getTickets());
 	}
 
 	/**
@@ -114,10 +115,10 @@ export class App extends React.PureComponent<{}, AppState> {
 	 * @param sortBy -way of sort, change the sortBy state to this for saveing to next time.
 	 */
 
-	sort = async (tickets: Ticket[] | undefined, sortBy: string) => {
+	sort = async ( sortBy: string) => {
 		var isSortDown = this.sortDown(sortBy);
 
-		this.setState({ sortBy: sortBy, sortDownArray: isSortDown,page:1 }, () => this.getTickets());
+		this.setState({ sortBy: sortBy, sortDownArray: isSortDown, page: 1 }, () => this.getTickets());
 
 	}
 
@@ -187,45 +188,35 @@ export class App extends React.PureComponent<{}, AppState> {
 
 		}
 
-		
+
 
 	}
 
 
 	render() {
-	
+
 		const { tickets } = this.state;
 
 		return (<main className={this.state.isDark ? 'dark-mode' : ''}>
-			<AppBar>
-			<header>
-				<input type="search" placeholder="Search..." onChange={(e) => this.onSearch(e.target.value, 5)} />
-			</header>
-
+			<AppBar className='app-bar'>
+				<div className="nav-bar">
+					<DarkModeToggle className='nav mode-toggle' onChange={this.onChangeMode} checked={this.state.isDark} size={65} speed={3} ></DarkModeToggle>
+					<h1 className="nav">Tickets List</h1>
+					<header>
+						<input className="nav" type="search" placeholder="Search..." onChange={(e) => this.onSearch(e.target.value)} />
+					</header>
+				</div>
+				<div className='sort-buttons'>
+					<button className={this.state.sortDownArray['date'] > 0 ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "date")}>sort by date</button>
+					<button className={this.state.sortDownArray['title'] > 0 ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "title")}>sort by title</button>
+					<button className={this.state.sortDownArray['email'] > 0 ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "email")}>sort by Email</button>
+				</div>
 			</AppBar>
-			{/* <div className='search-bar'>
-			<header>
-				<input type="search" placeholder="Search..." onChange={(e) => this.onSearch(e.target.value, 5)} />
-			</header>
-
-			</div> */}
-			{/* <button className="btn button-mode" onClick={this.onChangeMode}>{this.state.isDark ? 'Light' : "dark"}</button> */}
-			
-			
-			<DarkModeToggle className='mode-toggle' onChange={this.onChangeMode} checked={this.state.isDark} size={80} speed={3} ></DarkModeToggle>
-			<h1>Tickets List</h1>
-			<header>
-				<input type="search" placeholder="Search..." onChange={(e) => this.onSearch(e.target.value, 5)} />
-			</header>
-			<button className={this.state.sortDownArray['date']>0?"btn btn-on":"btn sort-button"} onClick={() => this.sort(tickets, "date")}>sort by date</button>
-			<button className={this.state.sortDownArray['title']>0?"btn btn-on":"btn sort-button"} onClick={() => this.sort(tickets, "title")}>sort by title</button>
-			<button className={this.state.sortDownArray['email']>0?"btn btn-on":"btn sort-button"} onClick={() => this.sort(tickets, "email")}>sort by Email</button>
-			
-			{tickets ? <div className='results'>{tickets.length != 0 ? <p>
+			{tickets ? <div className='results'>{tickets.length !== 0 ? <p>
 				Page number {this.state.page}.<br></br>
 				Showing {tickets.length} results in this page,Out of {this.state.totalResults} in {Math.ceil(this.state.totalResults / 20)} pages
 			</p> : <p>
-					There is no results for {this.state.search}.
+				There is no results for {this.state.search}.
 			</p>}
 			</div> : null}
 			<ListTickets Tickets={this.state.tickets ? this.state.tickets : []} ></ListTickets>
@@ -233,9 +224,6 @@ export class App extends React.PureComponent<{}, AppState> {
 				<button className=" btn button-page left" onClick={() => this.pageNumber("prev")} >{this.state.page - 1 > 0 ? this.state.page - 1 : '(X)'}</button>
 				<button className="btn button-page right" onClick={() => this.pageNumber("next")}>{this.state.page + 1 < Math.ceil(this.state.totalResults / 20) + 1 ? this.state.page + 1 : '(X)'}</button>
 			</div>
-			{/* <PageButton handleClick={()=>this.pageNumber()} totalResults={this.state.totalResults} pageNumber={this.state.page}></PageButton> */}
-
-
 		</main>)
 	}
 }
