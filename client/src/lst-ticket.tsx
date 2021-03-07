@@ -6,6 +6,12 @@ import Tickets from './tickets';
 export type ticketsState = {
     pinTicket: Ticket[];
 }
+/** 
+* This Component is in charge of displaying the  thickets.
+* To achive the goal of the pin button, an array tickets was defind that will contain 
+* all the pinned tickets and will dispaly before those who didnt pin.
+* If pin button was pressed this will change ticket.isPin to true,if it allready was true so to false.  
+*/
 
 export class ListTicket extends React.PureComponent<{Tickets:Ticket[]}, ticketsState> {
     state: ticketsState = {

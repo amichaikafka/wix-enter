@@ -36,6 +36,8 @@ console.log(newtempData.length);
 newtempData
   // @ts-ignore
  const page: number = req.query.page || 1;
+
+ 
  if(newtempData){
   var paginatedData
   if (req.query.sortBy === "date") { ( sortByDate(newtempData, req.query.sortDown)); }
@@ -61,10 +63,10 @@ console.log('server running', serverAPIPort)
  * @param tickets 
  * @param sortDown 
  */
-function sortByDate(tickets: Ticket[], sortDown: string|any) {
+function sortByDate(tickets: Ticket[], sortDown: {}|any) {
 
   if (tickets) {
-      if (sortDown==='false') {
+      if (sortDown[8]!='2') {
           tickets.sort((a, b) => a.creationTime - b.creationTime);
           return tickets;
       } else {
@@ -75,11 +77,10 @@ function sortByDate(tickets: Ticket[], sortDown: string|any) {
   }
 }
 
-function sortByTitle(tickets: Ticket[] | undefined, sortDown: string|any) {
- 
-
+function sortByTitle(tickets: Ticket[] | undefined, sortDown: {date:number,title:number,email:number}|any) {
+  
   if (tickets) {
-      if (sortDown==='false') {
+      if (sortDown[18]!='2') {
           tickets.sort((a, b) => {
               var x = a.title.toLowerCase();
               var y = b.title.toLowerCase();
@@ -88,6 +89,7 @@ function sortByTitle(tickets: Ticket[] | undefined, sortDown: string|any) {
           });
           return tickets;
       } else {
+        
           tickets.sort((a, b) => {
               var x = a.title.toLowerCase();
               var y = b.title.toLowerCase();
@@ -99,11 +101,11 @@ function sortByTitle(tickets: Ticket[] | undefined, sortDown: string|any) {
 
   }
 }
-function sortByEmail(tickets: Ticket[] | undefined, sortDown:string|any) {
+function sortByEmail(tickets: Ticket[] | undefined, sortDown:{}|any) {
 
 
   if (tickets) {
-      if (sortDown==='false') {
+      if (sortDown[28]!='2') {
           tickets.sort((a, b) => {
               var x = a.userEmail.toLowerCase();
               var y = b.userEmail.toLowerCase();
@@ -130,15 +132,20 @@ function search(tickets :Ticket[]|undefined,superSearch:string|any){
   
   var searcBy=superSearch.substring(0,5);
 
-  if(searcBy==="from:"){
+  if(searcBy.toLowerCase()==="from:"){
    var newSuperSearch=superSearch.substring(5);
     if(newSuperSearch.includes(' ')&&newSuperSearch.includes('@')){
-console.log("nnnnnnnn");
-
     tickets=searchByEmail(tickets,newSuperSearch);
     return tickets;
     }
   }
+  if(searcBy.toLowerCase()==="after:"){
+    var newSuperSearch=superSearch.substring(5);
+     if(newSuperSearch.includes(' ')&&newSuperSearch.includes('@')){
+     tickets=searchByEmail(tickets,newSuperSearch);
+     return tickets;
+     }
+   }
   
   var newTicket=tickets;
   if(tickets){
@@ -151,42 +158,41 @@ console.log("nnnnnnnn");
 
 }
 function searchByEmail(tickets :Ticket[]|undefined,email:string|any){
-  console.log("111111")
   var newTicket=tickets;
-  console.log("222222");
-  
   var index=cutSearch(email);
-  console.log("33333333")
   if(tickets){
-    console.log("4444444")
-  var searchEmail=email.substring(0,index);
-  console.log(searchEmail.toLowerCase());
-  
-  console.log("555555555");
-  
- console.log(tickets[0].userEmail);
-
+  var searchEmail=email.substring(0,index-1);
 
   newTicket=tickets.filter((t) => (t.userEmail.toLowerCase())===(searchEmail.toLowerCase()));
-  console.log(newTicket);
-  
-  console.log("666666666");
   
   }
   var wordToSearch=email.substring(index);
-  console.log(wordToSearch);
-  
-  console.log("77777777");
-  
   if(newTicket){
-    console.log("88888888");
-    
+
   newTicket=newTicket.filter((t) => (t.title.toLowerCase() + t.content.toLowerCase()).includes(wordToSearch.toLowerCase()));
-  console.log("99999999");
-  
+
   }
   tickets=newTicket;
-  console.log("kkkkkkkkkk");
+  
+  return tickets;
+
+}
+function searchByDate(tickets :Ticket[]|undefined,email:string|any){
+  var newTicket=tickets;
+  var index=cutSearch(email);
+  if(tickets){
+  var searchEmail=email.substring(0,index-1);
+
+  newTicket=tickets.filter((t) => (t.userEmail.toLowerCase())===(searchEmail.toLowerCase()));
+  
+  }
+  var wordToSearch=email.substring(index);
+  if(newTicket){
+
+  newTicket=newTicket.filter((t) => (t.title.toLowerCase() + t.content.toLowerCase()).includes(wordToSearch.toLowerCase()));
+
+  }
+  tickets=newTicket;
   
   return tickets;
 
