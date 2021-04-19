@@ -15,7 +15,7 @@ export type AppState = {
 	tickets?: Ticket[],
 	search: string,
 	isDark: boolean;
-	sortDownArray: { date: number, title: number, email: number };
+	sortDown:boolean;
 	sortBy: string;
 	page: number;
 	totalResults: number;
@@ -32,10 +32,10 @@ export class App extends React.PureComponent<{}, AppState> {
 	state: AppState = {
 		search: '',
 		isDark: false,
-		sortDownArray: { date: 0, title: 0, email: 0 },
 		sortBy: '',
 		page: 1,
-		totalResults: 0
+		totalResults: 0,
+		sortDown:false
 
 	}
 
@@ -54,11 +54,11 @@ export class App extends React.PureComponent<{}, AppState> {
 
 	getTickets = async () => {
 
-		const ans = await api.getTickets(this.state.sortBy, this.state.sortDownArray, this.state.page, this.state.search);
+		const ans = await api.getTickets(this.state.sortBy, this.state.sortDown, this.state.page, this.state.search);
 		const ticketByRequst = ans[0];
 		const totalResults = ans[1];
 
-		const newTickets = ticketByRequst.map((ticket) => ({ ...ticket, isPin: false, isShowAll: false }));
+		const newTickets = ticketByRequst.map((ticket) => ({ ...ticket, isPin: false }));
 		this.setState({
 			tickets: newTickets, totalResults: totalResults
 		});
@@ -117,8 +117,9 @@ export class App extends React.PureComponent<{}, AppState> {
 
 	sort = async ( sortBy: string) => {
 		var isSortDown = this.sortDown(sortBy);
+		
 
-		this.setState({ sortBy: sortBy, sortDownArray: isSortDown, page: 1 }, () => this.getTickets());
+		this.setState({ sortBy: sortBy, sortDown: isSortDown, page: 1 }, () => this.getTickets());
 
 	}
 
@@ -127,39 +128,10 @@ export class App extends React.PureComponent<{}, AppState> {
 	 * This function is in charge of changing the sortDwon state when pressing a sort button. 
 	 */
 	sortDown = (sortBy: string) => {
-
-		var sortArray = this.state.sortDownArray;
-		switch (sortBy) {
-			case 'date':
-				sortArray['email'] = 0;
-				sortArray['title'] = 0;
-				if (sortArray['date'] === 0 || sortArray['date'] === 2) {
-					sortArray['date'] = 1;
-				} else {
-					sortArray['date'] = 2;
-				}
-				break;
-			case 'email':
-				sortArray['date'] = 0;
-				sortArray['title'] = 0;
-				if (sortArray['email'] === 0 || sortArray['email'] === 2) {
-					sortArray['email'] = 1;
-				} else {
-					sortArray['email'] = 2;
-				}
-				break;
-			case 'title':
-				sortArray['date'] = 0;
-				sortArray['email'] = 0;
-				if (sortArray['title'] === 0 || sortArray['title'] === 2) {
-					sortArray['title'] = 1;
-				} else {
-					sortArray['title'] = 2;
-				}
-				break;
-
+		if(this.state.sortBy===sortBy){			
+			return !this.state.sortDown;
 		}
-		return sortArray;
+		return false;
 	}
 
 	/**
@@ -188,8 +160,6 @@ export class App extends React.PureComponent<{}, AppState> {
 
 		}
 
-
-
 	}
 
 
@@ -207,9 +177,9 @@ export class App extends React.PureComponent<{}, AppState> {
 					</header>
 				</div>
 				<div className='sort-buttons'>
-					<button className={this.state.sortDownArray['date'] > 0 ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "date")}>sort by date</button>
-					<button className={this.state.sortDownArray['title'] > 0 ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "title")}>sort by title</button>
-					<button className={this.state.sortDownArray['email'] > 0 ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "email")}>sort by Email</button>
+					<button className={this.state.sortBy==='date' ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "date")}>sort by date</button>
+					<button className={this.state.sortBy==='title' ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "title")}>sort by title</button>
+					<button className={this.state.sortBy==='email' ? "btn btn-on" : "btn sort-button"} onClick={() => this.sort( "email")}>sort by Email</button>
 				</div>
 			</AppBar>
 			{tickets ? <div className='results'>{tickets.length !== 0 ? <p>

@@ -53,6 +53,7 @@ body {
 		color: black;
 		border: 2px solid #4CAF50;
 	  }
+	
 
 	h1 {
 		font-weight: 300;
@@ -67,13 +68,15 @@ body {
 	
 	.app-bar{
 		display: flex;
-		
+		background-color: blue;
 
 		.nav-bar{
+			float:top;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-around;
+			background-color: blue;
 		
 		header {
 			width: 50%;

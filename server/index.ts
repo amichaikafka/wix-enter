@@ -55,7 +55,7 @@ console.log('server running', serverAPIPort)
 function sortByDate(tickets: Ticket[], sortDown: {} | any) {
 
   if (tickets) {
-    if (sortDown[8] != '2') {
+    if (sortDown != 'true') {
       tickets.sort((a, b) => a.creationTime - b.creationTime);
       return tickets;
     } else {
@@ -69,7 +69,7 @@ function sortByDate(tickets: Ticket[], sortDown: {} | any) {
 function sortByTitle(tickets: Ticket[] | undefined, sortDown: { date: number, title: number, email: number } | any) {
 
   if (tickets) {
-    if (sortDown[18] != '2') {
+    if (sortDown != 'true') {
       tickets.sort((a, b) => {
         var x = a.title.toLowerCase();
         var y = b.title.toLowerCase();
@@ -94,7 +94,7 @@ function sortByEmail(tickets: Ticket[] | undefined, sortDown: {} | any) {
 
 
   if (tickets) {
-    if (sortDown[28] != '2') {
+    if (sortDown[28] != 'true') {
       tickets.sort((a, b) => {
         var x = a.userEmail.toLowerCase();
         var y = b.userEmail.toLowerCase();

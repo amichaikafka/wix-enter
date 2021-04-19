@@ -4,14 +4,16 @@ import { Ticket } from './api';
 
 export type ticketsState = {
     isShowAll: boolean;
+
 }
 /** 
 * This Component is in charge of displaying every  thicket. 
 */
 
-export class Tickets extends React.PureComponent<{ ticket: Ticket, handleClick: (ticket: Ticket) => void }, ticketsState> {
+export class Tickets extends React.PureComponent<{ ticket: Ticket, handleClick: (ticket: Ticket) => void}, ticketsState> {
     state: ticketsState = {
-        isShowAll: false
+        isShowAll: false,
+   
     }
    /**
     * 
@@ -57,6 +59,7 @@ export class Tickets extends React.PureComponent<{ ticket: Ticket, handleClick: 
            
 
             <li className={this.className()}>
+               
                 <button className={this.props.ticket.isPin ? 'btn btn-on' : 'btn pin-button'} onClick={() => { this.props.handleClick(this.props.ticket) }}>{this.props.ticket.isPin ? 'Unpin' : 'Pin'}</button>
                 <h5 className='title'>{this.props.ticket.title}</h5>
                 <p className="content">{this.cutContent()}</p>
